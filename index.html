@@ -1,12 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="shortcut icon" type="image/x-icon" href="data:;base64,=" />
+	<title>Ajax Test</title>
+	<script src="/src/lib/jquery-3.6.1.min"></script>
+	<style>
+		.loading:before{content:" ";position:absolute;top:50%;left:50%;width:2em;height:2em;margin:-1em;
+			border:.25em solid blue;border-radius:50%;}
+	</style>
 </head>
-<body>
-	test test test
+<body class="loading">
+	<div class="container"></div>
+	<a href="/">/root</a>
+	<a href="/asdf1/#/asdf5/sub/?hash=asdf5#fdsafdsa">/asdf</a>
+	<a href="/asdf1/#/asdf5/sub#fdsafdsa?hash=asdf5">/asdf</a>
+	<a href="/#/asdf1"><span>/#/asdf1</span></a>
+	<a href="/#/asdf2"><span>/#/asdf2</span></a>
+	<a href="/#/asdf3"><span>/#/asdf3</span></a>
+	<a href="/#/asdf4"><span>/#/asdf4</span></a>
+	<a href="/#/asdf5?hash=asdf5"><span>/#/asdf5</span></a>
+	<a href="#justhash"><span>#justhash</span></a>
+	<a href="https://www.naver.com/" target="_blank"><span>NAVER</span></a>
+
+	<div class="event-wrapper" id="justhash">
+		<div class="event-inner">Capture Test</div>
+		<div class="event-inner">Capture Test</div>
+		<div class="event-inner">Capture Test</div>
+		<div class="event-inner">Capture Test</div>
+		<div class="event-inner">Capture Test</div>
+		<div class="event-inner">Capture Test</div>
+	</div>
 </body>
+<script>
+	$.get( '/src/tmpl/test.html', function( res, state, jqXHR ) {
+		console.log(res);
+	});
+</script>
 </html>
