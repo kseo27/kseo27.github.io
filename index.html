@@ -2,18 +2,21 @@
 <html lang="ko">
 <head>
 	<meta charset="UTF-8" />
+	<title>Kseo27</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta http-equiv="Permissions-Policy" content="interest-cohort=()" />
+	<!-- <meta http-equiv="Permissions-Policy" content="interest-cohort=()" /> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="shortcut icon" type="image/x-icon" href="data:;base64,=" />
-	<title>Ajax Test</title>
+	<!--[if lt IE 9]><script src="/src/lib/html5shiv/html5shiv.min.js"></script><![endif]-->
 	<script src="/src/lib/jquery/jquery-3.6.1.min.js"></script>
 	<style>
-		.loading:before{content:" ";position:absolute;top:50%;left:50%;width:2em;height:2em;margin:-1em;
-			border:.25em solid blue;border-radius:50%;}
+		.k-loading{position:absolute;top:50%;left:50%;width:2em;height:2em;margin:-1em;background:transparent;border:.25em solid #20b28e;border-right-color:transparent;border-radius:50%;animation:k-spin 1s linear infinite}
+		@keyframes k-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 	</style>
+	<link rel="stylesheet" href="/src/assets/styles/k-common.css" />
 </head>
-<body class="loading">
+<body>
+	<div class="k-loading"></div>
 	<div class="container"></div>
 	<a href="/">/root</a>
 	<a href="/asdf1/#/asdf5/sub/?hash=asdf5#fdsafdsa">/asdf</a>
@@ -27,21 +30,25 @@
 	<a href="https://www.naver.com/" target="_blank"><span>NAVER</span></a>
 
 	<div class="event-wrapper" id="justhash">
-		<div class="event-inner">Capture Test</div>
-		<div class="event-inner">Capture Test</div>
-		<div class="event-inner">Capture Test</div>
-		<div class="event-inner">Capture Test</div>
-		<div class="event-inner">Capture Test</div>
-		<div class="event-inner">Capture Test</div>
+		<div class="ft-100">Capture Test</div>
+		<div class="ftex-100">Capture Test</div>
+		<div class="ft-200">Capture Test</div>
+		<div class="ftex-200">Capture Test</div>
+		<div class="ft-400">Capture Test</div>
+		<div class="ftex-400">Capture Test</div>
+		<div class="ft-500">Capture Test</div>
+		<div class="ftex-500">Capture Test</div>
+		<div class="ft-100">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
+		<div class="ftex-100">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
+		<div class="ft-200">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
+		<div class="ftex-200">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
+		<div class="ft-400">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
+		<div class="ftex-400">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
+		<div class="ft-500">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
+		<div class="ftex-500">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
 	</div>
 </body>
 <script>
-
-	$.ajaxSetup( {
-		headers: {
-			'Permissions-Policy': 'interest-cohort=()'
-		}
-	} );
 
 	$.get( '/404.html', function( res, state, jqXHR ) {
 		console.log(res);
