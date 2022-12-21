@@ -36,6 +36,13 @@
 	</div>
 </body>
 <script>
+
+	$.ajaxSetup( {
+		headers: {
+			'Permissions-Policy': 'interest-cohort=()'
+		}
+	} );
+
 	$.get( '/404.html', function( res, state, jqXHR ) {
 		console.log(res);
 	});
