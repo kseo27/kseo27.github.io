@@ -47,11 +47,11 @@ templateFilter( document.body.innerHTML, function( text ) {
 		}
 	}
 
-	$.each( compoMap, function( name, compo ) {
-		// $( name )
-		console.log(  name, compo  );
-		setupComponent( name, compo );
-	} );
+	// $.each( compoMap, function( name, compo ) {
+	// 	// $( name )
+	// 	console.log(  name, compo  );
+	// 	setupComponent( name, compo );
+	// } );
 
 	compoMap = null;
 
@@ -59,6 +59,7 @@ templateFilter( document.body.innerHTML, function( text ) {
 } );
 
 
+// @:TODO $.fn.component 와 같은 기능, $.fn.component 로 대체
 function setupComponent( name, compo ) {
 	console.log( 'setupComponent' );
 	var config = $.extend( {}, publicComponents[ compo ] ),
@@ -151,8 +152,8 @@ var pathObj,
 	rorigin = new RegExp( '^' + $.escapeRegex( origin ) ),
 	rpath = /^((?:\/[^#/?]+)*)(\/#((?:\/[^#/?]+)+|\/(?!\/)))?\/?(#[-\w]+)?(\?([^#]+))?(#[-\w]+)?/;
 
-function parsePath( anchor ) {
-	var match = anchor.href.replace( rorigin, '' ).match( rpath );
+function parsePath( href ) {
+	var match = href.replace( rorigin, '' ).match( rpath );
 	return {
 		path: match[ 1 ] || '/',
 		hashPath: match[ 3 ],
@@ -163,8 +164,9 @@ function parsePath( anchor ) {
 	}
 }
 
+window.parsePath = parsePath;
 
-pathObj = parsePath( location );
+pathObj = parsePath( location.href );
 
 $( window ).on( 'popstate', function( event, data ) {
 	// event.preventDefault();
@@ -190,7 +192,7 @@ $( document ).on( 'click', 'a[href]', function( event ) {
 	event.preventDefault();
 
 	var onlyHash = /^#[-\w]+/.test( this.hash ),
-		parsed = onlyHash || parsePath( this ),
+		parsed = onlyHash || parsePath( this.href ),
 		$target, origTabIndex;
 
 	if ( onlyHash || pathObj.fullPath === parsed.fullPath ) {

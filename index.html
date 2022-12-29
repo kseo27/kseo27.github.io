@@ -51,11 +51,12 @@
 
 	<code>Capture Test. 한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</code>
 
+	<button type="button" class="get404">get 404</button>
+	<button type="button" class="getTmpl">get tmpl</button>
+
 	<MyComponent />
 	<my-component />
 
-	<button type="button" class="get404">get 404</button>
-	<button type="button" class="getTmpl">get tmpl</button>
 </body>
 <style type="text/css">
 .get404, .getTmpl { margin: .2em; padding: .5em 1em; }
@@ -66,18 +67,23 @@
 	// 	res = htmlFilter( res );
 	// });
 
-$('.get404').on( 'click', function() {
-	$.get( '/pages/template-test.tmpl', function( res, state, jqXHR ) {
-		res = pageFilter( res );
+$('.get404').on( 'click', function() {  // '/pages/template-test.tmpl'
+	$.get( {
+		url: '/pages/template-test.tmpl',
+		dataFilter: function( res ) {
+			return pageFilter( res );
+		}
+	}, function( res, state, jqXHR ) {
+		// res = pageFilter( res );
 		console.log(res);
-	});
-});
+	} );
+} );
 
 $('.getTmpl').on( 'click', function() {
 	$.get( '/pages/template-test.html', function( res, state, jqXHR ) {
 		res = pageFilter( res );
 		console.log(res);
-	});
-});
+	} );
+} );
 </script>
 </html>

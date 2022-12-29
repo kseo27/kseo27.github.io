@@ -32,7 +32,7 @@ function templateFilter( text, interceptor ) {
 	if ( !( text = $.trim( text ) ) ) return;
 
 	// Remove Live server script
-	var rliveServerScript = /\x3C!--+\s*Code injected by live-server\s*-+->\s*\x3Cscript>[\S\s]*?\x3C\/script>\s*/g;
+	var rliveServerScript = /\x3C!--+\s*Code injected by live-server\s*-+->\s*\x3Cscript>[\S\s]*?\x3C\/script>\s*/gi;
 	text = text.replace( rliveServerScript, '' );
 
 	// Set literals flag
@@ -109,19 +109,28 @@ function templateFilter( text, interceptor ) {
 };
 
 
-Object.defineProperty( window, 'pageFilter', {
-	value: pageFilter,
-	configurable: false,
-	enumerable: false,
-	writable: false
+Object.defineProperties( window, {
+	pageFilter: {
+		value: pageFilter
+	},
+	templateFilter: {
+		value: templateFilter
+	}
 } );
 
-Object.defineProperty( window, 'templateFilter', {
-	value: templateFilter,
-	configurable: false,
-	enumerable: false,
-	writable: false
-} );
+// Object.defineProperty( window, 'pageFilter', {
+// 	value: pageFilter,
+// 	configurable: false,
+// 	enumerable: false,
+// 	writable: false
+// } );
+
+// Object.defineProperty( window, 'templateFilter', {
+// 	value: templateFilter,
+// 	configurable: false,
+// 	enumerable: false,
+// 	writable: false
+// } );
 
 
 })();
