@@ -153,20 +153,23 @@ var pathObj,
 	rpath = /^((?:\/[^#/?]+)*)(\/#((?:\/[^#/?]+)+|\/(?!\/)))?\/?(#[-\w]+)?(\?([^#]+))?(#[-\w]+)?/;
 
 function parsePath( href ) {
-	var match = href.replace( rorigin, '' ).match( rpath );
+	var match = href.replace( rorigin, '' ).match( rpath ),
+		query = match[ 6 ] && Qs.parse( match[ 6 ], { ignoreQueryPrefix: true } );
+	if ( query && query.redirect ) return parsePath( '/#' + query.redirect );
 	return {
 		path: match[ 1 ] || '/',
 		hashPath: match[ 3 ],
 		hash: match[ 4 ] || match[ 7 ],
-		query: match[ 6 ],
+		query: query,
 		fullPath: ( match[ 1 ] + ( match[ 2 ] || '' ) || '/' )
 			+ ( match[ 6 ] ? match[ 5 ] : '' )
 	}
 }
 
-window.parsePath = parsePath;
+// window.parsePath = parsePath;
 
 pathObj = parsePath( location.href );
+console.log( 'Path onload:', pathObj );
 
 $( window ).on( 'popstate', function( event, data ) {
 	// event.preventDefault();
@@ -199,7 +202,7 @@ $( document ).on( 'click', 'a[href]', function( event ) {
 		try { $target = $( onlyHash ? this.hash : parsed.hash ) } catch( e ) {};
 		if ( $target && $target[ 0 ] ) {
 			origTabIndex = $target[ 0 ].getAttribute( 'tabindex' );
-			$target.attr( 'tabindex', 0 ).focus().attr( 'tabindex', origTabIndex );
+			$target.attr( 'tabindex', 0 ).trigger( 'focus' ).attr( 'tabindex', origTabIndex );
 		}
 		onlyHash ? ( pathObj.hash = this.hash ) : ( pathObj = parsed );
 		parsed = null;
