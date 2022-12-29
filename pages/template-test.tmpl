@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Redirect</title>
+	<script type="text/javascript">
+		var str = ' </head> <body>';
+		// TODO: query string으로 path & query를 index페이지로 전달
+		// path=encodeURIComponent(path)&query=encodeURIComponent(query)
+		window.location.href = window.location.protocol + '//' + window.location.host;
+	</script>
+</head>
+<body>
+<!-- 404 Not Found!!! -->
+</body>
+<script type="text/javascript">
+	var str = ' </body> </head>';
+	// TODO: query string으로 path & query를 index페이지로 전달
+	// path=encodeURIComponent(path)&query=encodeURIComponent(query)
+	window.location.href = window.location.protocol + '//' + window.location.host;
+
+	var normalTml = ` normal template literal `;
+
+	var tml = ` "$tmpl" template literals ${
+			window.location.href + ` inner tml ${ `check` + window.location.host + ` deeper } ${
+				window.location.protocol + 'protocol'
+			} deeper ${
+				`check` + window.location.protocol + `protocol } `
+			} ` } `
+		} check test	`
+		
+		`;
+</script>
+</html>

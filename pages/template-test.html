@@ -1,0 +1,36 @@
+<template>
+	<div>template for test</div>
+	<div class=".tmp-wrap">
+		<div class="tmp-content">
+			<p>template for test</p>
+			<p>template for test</p>
+			<p>template for test</p>
+		</div>
+		<div class="tmp-foot"></div>
+	</div>
+</template>
+
+
+<template>
+	<div>template for test</div>
+	<div class=".tmp-wrap">
+		<div class="tmp-content">
+			<p>template for >>> test</p>
+			<p>template for >>> test</p>
+			<p>template for >>> test</p>
+		</div>
+		<div class="tmp-foot"></div>
+	</div>
+</template>
+
+<script>
+	alert( 'complete template test.' );
+
+	var tml = ` template literals ${
+			window.location.href + ` inner tml ${ window.location.host + ` deeper ${
+				window.location.protocol + 'protocol'
+			} ` } `
+		} check test
+		
+		`;
+</script>

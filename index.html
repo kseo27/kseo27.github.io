@@ -7,16 +7,25 @@
 	<!-- <meta http-equiv="Permissions-Policy" content="interest-cohort=()" /> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="shortcut icon" type="image/x-icon" href="data:;base64,=" />
-	<!--[if lt IE 9]><script src="/src/lib/html5shiv/html5shiv.min.js"></script><![endif]-->
-	<script src="/src/lib/jquery/jquery-3.6.1.min.js"></script>
-	<style>
-		.k-loading{position:absolute;top:50%;left:50%;width:2em;height:2em;margin:-1em;background:transparent;border:.25em solid #20b28e;border-right-color:transparent;border-radius:50%;animation:k-spin 1s linear infinite}
-		@keyframes k-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+	<!--[if lt IE 9]><script type="text/javascript" src="/src/vendor/html5shiv/html5shiv.min.js"></script><![endif]-->
+	<script type="text/javascript" src="/src/vendor/jquery/jquery-3.6.1.min.js"></script>
+	<script type="text/javascript" src="/src/exts/jquery/jquery-setup.js"></script>
+	<script type="text/javascript" src="/src/exts/jquery/ajax-setup.js"></script>
+	<script type="text/javascript" src="/src/assets/js/k-common.js"></script>
+	<script type="text/javascript" src="/src/assets/js/template-filter.js"></script>
+	<script type="text/javascript" src="/src/assets/js/k-router.js"></script>
+	<style type="text/css">
+		.k-loading{position:absolute;top:0;left:0;right:0;bottom:0;background:transparent;z-index:10}body>.k-loading,article>.k-loading,section>.k-loading{font-size:2em;z-index:999999}
+		.k-preloader{position:absolute;top:47%;left:50%;width:1em;height:1em;margin:-.5em;background:transparent;border:.125em solid #20b28e;border-right-color:transparent;border-radius:50%;-webkit-animation:k-spin 1s linear infinite;animation:k-spin 1s linear infinite}
+		@-webkit-keyframes k-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes k-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 	</style>
-	<link rel="stylesheet" href="/src/assets/styles/k-common.css" />
+	<link rel="stylesheet" href="/src/assets/css/k-common.css" />
 </head>
 <body>
-	<div class="k-loading"></div>
+	<div class="k-loading"><div class="k-preloader"></div></div>
+	<div id="wrapper">
+
+	</div>
 	<div class="container"></div>
 	<a href="/">/root</a>
 	<a href="/asdf1/#/asdf5/sub/?hash=asdf5#fdsafdsa">/asdf</a>
@@ -31,27 +40,44 @@
 
 	<div class="event-wrapper" id="justhash">
 		<div class="ft-100">Capture Test</div>
-		<div class="ftex-100">Capture Test</div>
-		<div class="ft-200">Capture Test</div>
-		<div class="ftex-200">Capture Test</div>
+		<div class="ft-300">Capture Test</div>
 		<div class="ft-400">Capture Test</div>
-		<div class="ftex-400">Capture Test</div>
 		<div class="ft-500">Capture Test</div>
-		<div class="ftex-500">Capture Test</div>
 		<div class="ft-100">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
-		<div class="ftex-100">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
-		<div class="ft-200">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
-		<div class="ftex-200">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
+		<div class="ft-300">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
 		<div class="ft-400">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
-		<div class="ftex-400">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
 		<div class="ft-500">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
-		<div class="ftex-500">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
 	</div>
-</body>
-<script>
 
-	$.get( '/404.html', function( res, state, jqXHR ) {
+	<code>Capture Test. 한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</code>
+
+	<MyComponent />
+	<my-component />
+
+	<button type="button" class="get404">get 404</button>
+	<button type="button" class="getTmpl">get tmpl</button>
+</body>
+<style type="text/css">
+.get404, .getTmpl { margin: .2em; padding: .5em 1em; }
+</style>
+<script type="text/javascript">
+
+	// $.get( '/404.html', function( res, state, jqXHR ) {
+	// 	res = htmlFilter( res );
+	// });
+
+$('.get404').on( 'click', function() {
+	$.get( '/pages/template-test.tmpl', function( res, state, jqXHR ) {
+		res = pageFilter( res );
 		console.log(res);
 	});
+});
+
+$('.getTmpl').on( 'click', function() {
+	$.get( '/pages/template-test.html', function( res, state, jqXHR ) {
+		res = pageFilter( res );
+		console.log(res);
+	});
+});
 </script>
 </html>
