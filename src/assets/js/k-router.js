@@ -1,5 +1,69 @@
 $(function() { 'use strict';
 
+
+// @:polyfill #getOwnPropertyDescriptors IE9 ~ Edge15
+if ( !Object.getOwnPropertyDescriptors ) {
+	Object.defineProperty( Object, 'getOwnPropertyDescriptors', {
+		configurable: true, enumerable: false, writable: true,
+		value: function( obj ) {
+			var descriptors = {};
+			Object.getOwnPropertyNames( obj ).forEach( function( prop ) {
+				descriptors[ prop ] = Object.getOwnPropertyDescriptor( obj, prop );
+			} );
+			return descriptors;
+		}
+	} );
+}
+
+
+$( window ).on( 'load.setDescriptors', function() {
+	$.origGlobalPropDescriptors = Object.getOwnPropertyDescriptors( window );
+
+	console.log('::: Loaded Descriptors');
+
+	$( '<button type="button" class="testbtn">Descriptors</button>' )
+		.appendTo( 'body' )
+		.on( 'click', checkDescriptors );
+
+	$( window ).off( 'load.setDescriptors' );
+} );
+
+function checkDescriptors() {
+	$.each( Object.getOwnPropertyDescriptors( window ), function( prop, descriptor ) {
+		var accessor = descriptor.get ? 'get' : 'value';
+		if ( $.origGlobalPropDescriptors.hasOwnProperty( prop ) ) {
+			if ( !$.origGlobalPropDescriptors[ prop ].writable ) return;
+			if ( descriptor[ accessor ] !== $.origGlobalPropDescriptors[ prop ][ accessor ] ) {
+				// Object.defineProperty( window, prop, $.origGlobalPropDescriptors[ prop ] );
+				console.log( 'Diff ' + prop, $.origGlobalPropDescriptors[ prop ], descriptor);
+			}
+		} else {
+			// delete window[ prop ];
+			console.log( 'New ' + prop, descriptor);
+		}
+	});
+}
+
+// TODO: ajaxPrefilter를 사용하여 요청 중 route가 바뀌면 모두 abort하도록 해야함
+// $.ajaxPrefilter( '+', function( s, originalSettings, jqXHR ) {
+// 	var requestId = s.type.toUpperCase() + ':' + s.url;
+
+// 	if ( ajaxQueue[ requestId ] ) {
+// 		jqXHR.abort( 'duplicated' );
+// 		return;
+// 	}
+
+// 	// console.log('[prefilter]:context:', jqXHR.context);
+// 	ajaxQueue[ requestId ] = jqXHR;
+
+// 	jqXHR.always( function() {
+// 		// console.log('[prefilter]:after:', requestId);
+// 		ajaxQueue[ requestId ] = undefined;
+// 		delete ajaxQueue[ requestId ];
+// 	} );
+// } );
+
+
 var publicComponents = {
 	'Sample': {
 		template: '<div>Sample Component {{ myprop }}</div>',
@@ -285,9 +349,10 @@ Element.prototype.addEventProxy = function( type, listener, useCapture ) {
 
 
 
-function uniqueId() {
-	var id = ( +( Date.now() + ( Math.random() + '00000' ).slice( 2, 5 ) ) ).toString( 36 );
-	return document.querySelector( '[data-k-id="' + id + '"]' ) ? uniqueId() : id;
+var lastId = 0;
+
+function uniqueId( prefix ) {
+	return ( prefix || 'k-' ) + ( ++lastId ).toString( 36 );
 }
 
 

@@ -40,7 +40,7 @@ function templateFilter( text, interceptor ) {
 		f = '$l',
 		i = 0;
 
-	while ( text.indexOf( f ) > -1 ) {
+	while ( ~text.indexOf( f ) ) {
 		f = f + ( i++ );
 	}
 

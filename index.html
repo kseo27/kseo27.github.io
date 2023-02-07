@@ -8,9 +8,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="shortcut icon" type="image/x-icon" href="data:;base64,=" />
 	<!--[if lt IE 9]><script type="text/javascript" src="/src/vendor/html5shiv/html5shiv.min.js"></script><![endif]-->
-	<script type="text/javascript" src="/src/vendor/jquery/jquery-3.6.1.min.js"></script>
+
+	<!---- @:Expt log filter ---->
+	<!-- <script type="text/javascript">
+	!function logFilter() { if ( typeof console === 'object' ) {
+		var origLog = console.log;
+		console.log = console.error = console.info = function() {};
+		console.log = function( arg ) {
+			if ( /^\[(Perf|Request)\b/.test( arg ) ) return origLog.apply( null, arguments );
+		}
+	} }();
+	</script> -->
+	<!-- <script type="text/javascript" src="/temp/performance.js"></script> -->
+	<!--// @:Expt log filter ---->
+
+	<!-- <script type="text/javascript" src="/src/vendor/jquery/jquery-3.6.3.min.js"></script> -->
+	<script type="text/javascript" src="/src/vendor/jquery/jquery-3.6.3.js"></script>
 	<script type="text/javascript" src="/src/exts/jquery/jquery-setup.js"></script>
 	<script type="text/javascript" src="/src/exts/jquery/ajax-setup.js"></script>
+	<script type="text/javascript" src="/src/vendor/numeral/numeral.min.js"></script>
 	<script type="text/javascript" src="/src/vendor/qs/qs.min.js"></script>
 	<script type="text/javascript" src="/src/assets/js/k-common.js"></script>
 	<script type="text/javascript" src="/src/assets/js/template-filter.js"></script>
@@ -23,6 +39,9 @@
 	<link rel="stylesheet" href="/src/assets/css/k-common.css" />
 </head>
 <body>
+	<noscript>
+		<strong>We're sorry but Kseo27 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+	</noscript>
 	<div class="k-loading"><div class="k-preloader"></div></div>
 	<div id="wrapper">
 
@@ -52,22 +71,35 @@
 
 	<code>Capture Test. 한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</code>
 
-	<button type="button" class="get404">get 404</button>
-	<button type="button" class="getTmpl">get tmpl</button>
+	<button type="button" class="testbtn get404">get 404</button>
+	<button type="button" class="testbtn getTmpl">get tmpl</button>
+	<button type="button" class="testbtn justFunc">function</button>
 
 	<MyComponent />
 	<my-component />
 
+	<pre></pre>
 </body>
 <style type="text/css">
-.get404, .getTmpl { margin: .2em; padding: .5em 1em; }
+.testbtn { margin: .2em; padding: .5em 1em; }
 </style>
 <script type="text/javascript">
+( function() {
+
+// @:Ref eval url test
+// $._evalUrl( '/src/assets/js/eval-test.js' );
+// $._evalUrl( '/src/assets/js/eval-test.js' );
+// $(window).on('load', function() {
+// 	var scr = document.createElement('script');
+// 	scr.src = '/src/assets/js/eval-test.js';
+// 	document.body.appendChild( scr );
+// });
+// $( document.head ).append( '<script src="/src/assets/js/eval-test.js" />' );
 
 	// $.get( '/404.html', function( res, state, jqXHR ) {
 	// 	res = htmlFilter( res );
 	// });
-
+/* 
 $('.get404').on( 'click', function() {  // '/pages/template-test.tmpl'
 	$.get( {
 		url: '/pages/template-test.tmpl',
@@ -79,12 +111,275 @@ $('.get404').on( 'click', function() {  // '/pages/template-test.tmpl'
 		console.log(res);
 	} );
 } );
-
+ */
 $('.getTmpl').on( 'click', function() {
-	$.get( '/pages/template-test.html', function( res, state, jqXHR ) {
-		res = pageFilter( res );
-		console.log(res);
-	} );
+	// $.get( '/pages/template-test.html', function( res, state, jqXHR ) {
+	// 	res = pageFilter( res );
+	// 	console.log(res);
+	// } );
+
+	var rextension = /\.[a-z]+$/i;
+
+	var url = '/pages/./template-test';
+
+	if ( rextension.test( url ) ) {
+		$.get( url, function( res, state, jqXHR ) {
+			res = pageFilter( res );
+			console.log(res);
+		} )
+	} else {
+		$.ajax( url + '.tmpl', {
+			type: 'get'
+		} )
+		.then( function( res, state, jqXHR ) {
+			$.get( this.url, function( res, state, jqXHR ) {
+				console.log( $.parseHTML( res, true ) );
+				res = pageFilter( res );
+				console.log( this.url, $.parseHTML( res, true ) );
+			} )
+		} )
+		.catch( function( jqXHR, state, statusText ) {
+			if ( jqXHR.status == 404 ) {
+				$.get( url + '.tmpl', function( res, state, jqXHR ) {
+					res = pageFilter( res );
+					console.log( this.url, res );
+				} )
+			}
+			return true;
+		} );
+	}
 } );
+
+
+
+	// // 스코프로 지정할 요소 선언
+	// // TODO: 전부 외부에서 확장하여 할당만 하는 방식이 좋을듯
+	// var $scope = /* jQuery( scopeElement ) */ jQuery('#scopedContent');
+
+	// var id = _uniqueId();
+	// $scope.attr( 'data-dom', 'dom' + id );
+
+	// // 스코프를 제한하여 jQuery 대체 셀렉터 함수 정의
+	// $ = function jQueryComponent( selector, context ) {
+	// 	context = context ? $( context, $scope ) : $scope;
+	// 	return new jQuery.fn.init( selector, context, context );
+	// };
+
+	// // 전역 메서드와 프로토타입 복사
+	// jQuery.extend( $, jQuery );
+	// // jQuery.extend( ( $.fn = $.prototype = {} ), jQuery.fn );
+	// $.fn = $.prototype = jQuery.fn;
+
+
+// justhash
+var originit = $.fn.init;
+
+function jqCompo( root, selector, context ) {
+	if ( context && !$.isPlainObject( context ) ) {
+		// context = 
+	}
+	
+	context = context ? $( root ).find( context ) : root;
+	var ret = originit.call( this, selector, context, root );
+	console.log( root, selector, context, ret );
+	return ret;
+}
+jqCompo.prototype = $.fn;
+
+
+var lastId = 0;
+
+function uniqueId( prefix ) {
+	return ( prefix || 'k-' ) + ( ++lastId ).toString( 36 );
+}
+
+$.fn.executeComponent = function( func ) {
+	var elem, i;
+
+	console.log(
+		this.data( 'component', { id: uniqueId() } )
+	);
+
+	for ( i = 0; ( elem = this[ i ] ) != null; i++ ) {
+		try {
+			$.currentComponent = elem;
+			$.fn.init = jqCompo.bind( null, elem );
+			func();
+		} finally {
+			$.currentComponent = null;
+			$.fn.init = originit;
+		}
+	}
+}
+
+// function emptyComponent( elems )
+
+// $.fn.emptyComponent = function() {
+// 	var compoData = this.data( 'component' );
+// 	if ( compoData ) {
+// 		this.data( 'component', { id: compoData.id } );
+// 		compoData = null;
+// 	}
+// }
+
+
+// proxy event listener
+// addEventListener\s*( | removeEventListener\s*( 검색하여 => addEventProxy( 'routeId', 형태로 변환
+Window.prototype.proxyEventListener =
+Document.prototype.proxyEventListener =
+Element.prototype.proxyEventListener = function( routeId, type, listener, useCapture ) {
+	var component;
+	if ( !routeId || !( component = $( '[data-compo="' + routeId + '"' ) )[ 0 ] ) {
+		return console.error( 'None current component.' );
+	}
+// --------------------- todo:...
+	var that = this,
+		eventId = '.' + $( $.currentComponent ).data( 'component' ).id;
+
+	this.addEventListener( type, listener, useCapture );
+
+	if ( $.contains( $.currentComponent, this ) ) {
+		$( this ).on( 'remove', function() {
+			that.removeEventListener( type, listener, useCapture );
+		} );
+	} else {
+		$( $.currentComponent ).on( 'remove' + eventId + ' empty' + eventId, function() {
+			that.removeEventListener( type, listener, useCapture );
+		} );
+	}
+
+	// function _removeEvent() {
+	// 	$( '#wrapper' ).off( 'empty', _removeEvent );
+	// 	that.removeEventListener( type, listener, useCapture );
+	// 	that = _removeEvent = null;
+	// }
+	// $( '#wrapper' ).on( 'empty', _removeEvent );
+
+}
+
+window.proxyEventListener('popstate', function(ev) {
+	console.log('local popstate', ev);
+})
+
+// empty event 추가
+$.fn.empty = ( function( orig ) {
+	return function() {
+		var events, data, elem, i;
+		for ( i = 0; ( elem = this[ i ] ) != null; i++ ) {
+			events = $._data( elem, "events" );
+			if ( events && events.empty ) {
+				$( elem ).triggerHandler( "empty" );
+			}
+		
+			var compoData = this.data( 'component' );
+			if ( compoData ) {
+				this.data( 'component', { id: compoData.id } );
+				compoData = null;
+			}
+			
+		}
+		orig.call( this );
+	};
+} )( $.fn.empty );
+
+// jquery ui 에 존재함
+$.cleanData = ( function( orig ) {
+	return function( elems ) {
+		var events, elem, i;
+		for ( i = 0; ( elem = elems[ i ] ) != null; i++ ) {
+
+			// Only trigger remove when necessary to save time
+			events = $._data( elem, "events" );
+			if ( events && events.remove ) {
+				$( elem ).triggerHandler( "remove" );
+			}
+		}
+		orig( elems );
+	};
+} )( $.cleanData );
+
+
+var resources = {};
+$( window ).one( 'load', function() {
+	document.querySelectorAll( 'script[src], link[href]' ).forEach( function( el ) {
+		var srcurl = el.src || el.href;
+		if ( srcurl && ( /^script$/i.test( el.nodeName ) || /^stylesheet$/i.test( el.rel ) ) ) {
+			resources[ srcurl ] = true;
+		}
+	} );
+
+	console.log( resources );
+} );
+
+// var urlAnchor = document.createElement( 'a' );
+
+function isImported( el ) {
+	var currentRouteUrl = '/path/'; // route와 함께 적용
+	var urlAnchor;
+	var srcurl = el.getAttribute( 'src' ) || el.getAttribute( 'href' );
+
+	if ( srcurl && ( /^script$/i.test( el.nodeName ) || /^stylesheet$/i.test( el.rel ) ) ) {
+
+		// Parse url for locally import
+		if ( /^(\/?\.+\/|[-\w])/.test( srcurl ) ) {
+			srcurl = ( currentRouteUrl + '/' + srcurl ).split( /\/+/ ).join( '/' );
+		}
+		urlAnchor = document.createElement( 'a' );
+		urlAnchor.href = srcurl;
+		urlAnchor.href = urlAnchor.href;
+		console.log( srcurl = urlAnchor.href );
+		return !!resources[ srcurl ];
+	}
+}
+
+
+// * context prefilter test
+// $.ajaxPrefilter( '*', function( s, originalSettings, jqXHR ) {
+
+// 	console.log('=== new prefilter.', this);
+
+// 	jqXHR.always( function() {
+// 		console.log('=== new prefilter always.');
+// 	} );
+// } );
+
+// $.ajaxPrefilter( '+', function( s, originalSettings, jqXHR ) {
+
+// 	console.log('=== new2 prefilter.');
+
+// 	jqXHR.always( function() {
+// 		console.log('=== new2 prefilter always.');
+// 	} );
+// } );
+
+// @:Test request
+$('.get404').on( 'click', function() {  // '/pages/template-test.tmpl'
+	$( '.event-wrapper' ).ajax( '/pages/template-test.tmpl', {
+		dataType: 'json',
+		// dataFilter: function( res ) {
+		// 	return pageFilter( res );
+		// }
+	} ).then( function( res, state, jqXHR ) {
+		console.log( res );
+	} );
+	$( '.event-wrapper' ).ajax( '/pages/template-test.tmpl', {
+		dataFilter: function( res ) {
+			return pageFilter( res );
+		}
+	} ).then( function( res, state, jqXHR ) {
+		console.log( res );
+	} );
+
+	// $.ajaxAbortAll();
+} );
+
+// @:Test just function
+$('.justFunc').on( 'click', function justFunction() {
+	console.log('just function.');
+	return null;
+} );
+
+
+} )();
 </script>
 </html>

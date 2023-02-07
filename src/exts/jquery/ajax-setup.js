@@ -16,6 +16,29 @@
 } )( function( $ ) { 'use strict';
 
 
+var rhashQuery = /(#|\?).*$/;
+
+// Normalize request url
+function normalizeUrl( url ) {
+	var urlAnchor = document.createElement( 'a' );
+
+	// Support: IE <=8 - 11, Edge 12 - 15
+	// IE throws exception on accessing the href property if url is malformed,
+	// e.g. http://example.com:80x/
+	try {
+		urlAnchor.href = url;
+
+		// Support: IE <=8 - 11 only
+		// Anchor's host property isn't correctly set when s.url is relative
+		urlAnchor.href = urlAnchor.href;
+		url = urlAnchor.href;
+	} catch ( e ) {}
+
+	urlAnchor = null;
+
+	return url.replace( rhashQuery, '' );
+}
+
 var ajaxQueue = {};
 
 // ???
@@ -28,24 +51,47 @@ function clearAjaxQueue() {
 
 
 // 모든 요청에 대한 Prefilter 추가 ( `*` filter 에 prepend 하기 위해 `+` 심볼 사용 )
+// 중복 요청 방지
 $.ajaxPrefilter( '+', function( s, originalSettings, jqXHR ) {
-	var requestId = s.type.toUpperCase() + ':' + s.url;
+	console.log('*== def prefilter.');
+	var requestId = s.type.toUpperCase() + ':' + normalizeUrl( s.url );
 
 	if ( ajaxQueue[ requestId ] ) {
 		jqXHR.abort( 'duplicated' );
 		return;
 	}
 
+	if ( s.element ) {
+		s.element.append( '<div class="k-loading"><div class="k-preloader"></div></div>' );
+	}
+
 	// TODO: prefilter 내부에서 처리해도 되는지 테스트 필요 (시나리오1)
 	// console.log('[prefilter]:context:', jqXHR.context);
+	// ajaxQueue[ requestId ] = true;
 	ajaxQueue[ requestId ] = jqXHR;
 
 	jqXHR.always( function() {
+		console.log('*== def prefilter always.', this);
+
+		if ( s.element ) {
+			s.element.find( '.k-loading' ).remove();
+		}
+
 		// console.log('[prefilter]:after:', requestId);
-		ajaxQueue[ requestId ] = undefined;
+		// ajaxQueue[ requestId ] = undefined;
 		delete ajaxQueue[ requestId ];
 	} );
 } );
+
+
+// TODO:test ajax abort all
+$.ajaxAbortAll = function() {
+	var reqId;
+	for ( reqId in ajaxQueue ) {
+		ajaxQueue[ reqId ].abort( 'cancel_all' );
+	}
+	ajaxQueue = {};
+};
 
 
 // TODO: prefilter 내부에서 처리하면 안된다면... (시나리오2)
@@ -143,6 +189,22 @@ $.ajaxSetup( {
 // $( document ).ajaxStop(function( ev ) {});
 // $( document ).ajaxSuccess(function( ev, xhr, settings ) {});
 // $( document ).ajaxError(function( ev, xhr, settings ) {});
+
+
+
+$.fn.ajax = function( url, options ) {
+
+	if ( typeof url === "object" ) {
+		options = url;
+		url = undefined;
+	}
+
+	options = $.extend( { element: this }, options );
+
+	return $.ajax( url, options );
+}
+
+
 
 window.genLoader = function() {
 	var loading = document.createElement( 'div' ),
