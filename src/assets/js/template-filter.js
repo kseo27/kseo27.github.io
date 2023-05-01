@@ -50,10 +50,11 @@ function templateFilter( text, interceptor ) {
 	}
 	function grepNestedExpr( tmpl, depth ) {
 		var match, result = '';
-		if ( depth === undefined ) depth = 0;
+		if ( depth === undefined ) depth = 1;
 
-		while ( ( match = tmpl.match( rtmplExpr ) ) ) {
-
+		while ( depth && ( match = tmpl.match( rtmplExpr ) ) ) {
+console.log(depth, match);
+// console.log(match[1], match[2]);
 			tmpl = tmpl.substring( match[ 0 ].length );
 
 			if ( match[ 2 ] ) {
@@ -81,6 +82,7 @@ function templateFilter( text, interceptor ) {
 		matched += match[ 0 ];
 
 		if ( match[ 1 ] ) {
+			console.log( 0, match[0], match[1]);
 			matched += grepNestedExpr( text.substring( rtmplLi.lastIndex ) );
 		}
 

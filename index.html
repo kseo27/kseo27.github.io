@@ -4,382 +4,155 @@
 	<meta charset="UTF-8" />
 	<title>Kseo27</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<!-- <meta http-equiv="Permissions-Policy" content="interest-cohort=()" /> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="shortcut icon" type="image/x-icon" href="data:;base64,=" />
-	<!--[if lt IE 9]><script type="text/javascript" src="/src/vendor/html5shiv/html5shiv.min.js"></script><![endif]-->
+	<noscript><link rel="stylesheet" href="/src/assets/css/noscript.css" /></noscript>
+	<link rel="stylesheet" href="/src/assets/css/kj-common.css" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" />
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" />
+	<link rel="stylesheet" href="/src/assets/css/fonts.googleapis.fira-code.proxy.css" />
+	<link rel="stylesheet" href="/src/assets/css/staging.css" />
+	<!--[if lt IE 9]>
+		<script type="text/javascript" src="/src/vendor/html5shiv/html5shiv.min.js"></script>
+	<![endif]-->
+	<script type="text/javascript" src="/src/assets/js/k-theme.js"></script>
 
-	<!---- @:Expt log filter ---->
-	<!-- <script type="text/javascript">
-	!function logFilter() { if ( typeof console === 'object' ) {
-		var origLog = console.log;
-		console.log = console.error = console.info = function() {};
-		console.log = function( arg ) {
-			if ( /^\[(Perf|Request)\b/.test( arg ) ) return origLog.apply( null, arguments );
-		}
-	} }();
-	</script> -->
 	<!-- <script type="text/javascript" src="/temp/performance.js"></script> -->
-	<!--// @:Expt log filter ---->
 
-	<!-- <script type="text/javascript" src="/src/vendor/jquery/jquery-3.6.3.min.js"></script> -->
-	<script type="text/javascript" src="/src/vendor/jquery/jquery-3.6.3.js"></script>
-	<script type="text/javascript" src="/src/exts/jquery/jquery-setup.js"></script>
-	<script type="text/javascript" src="/src/exts/jquery/ajax-setup.js"></script>
-	<script type="text/javascript" src="/src/vendor/numeral/numeral.min.js"></script>
-	<script type="text/javascript" src="/src/vendor/qs/qs.min.js"></script>
-	<script type="text/javascript" src="/src/assets/js/k-common.js"></script>
-	<script type="text/javascript" src="/src/assets/js/template-filter.js"></script>
-	<script type="text/javascript" src="/src/assets/js/k-router.js"></script>
-	<style type="text/css">
-		.k-loading{position:absolute;top:0;left:0;right:0;bottom:0;background:transparent;z-index:10}body>.k-loading,article>.k-loading,section>.k-loading{font-size:2em;z-index:999999}
-		.k-preloader{position:absolute;top:47%;left:50%;width:1em;height:1em;margin:-.5em;background:transparent;border:.125em solid #20b28e;border-right-color:transparent;border-radius:50%;-webkit-animation:k-spin 1s linear infinite;animation:k-spin 1s linear infinite}
-		@-webkit-keyframes k-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}@keyframes k-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-	</style>
-	<link rel="stylesheet" href="/src/assets/css/k-common.css" />
+	<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+	<link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+	<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-ui@1.13.2/dist/themes/base/jquery-ui.min.css" /> -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-ui@1.13.2/dist/themes/smoothness/jquery-ui.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+	<!-- <script src="https://cdn.jsdelivr.net/npm/jquery-ui@1.13.2/dist/jquery-ui.min.js" defer></script> -->
+
+	<script src="https://cdn.jsdelivr.net/npm/numeral@2.0.6/numeral.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/qs@6.11.1/dist/qs.min.js"></script>
+
+	<script src="/src/assets/js/k-common.js"></script>
+	<script src="/src/exts/jquery/jquery-setup.js"></script>
+	<script src="/src/exts/jquery/ajax-setup.js"></script>
+	<script src="/src/assets/js/kj-core.js"></script>
+	<script src="/src/assets/js/kj-main.js" defer></script>
 </head>
-<body>
-	<noscript>
-		<strong>We're sorry but Kseo27 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-	</noscript>
-	<div class="k-loading"><div class="k-preloader"></div></div>
-	<div id="wrapper">
+<body class="k-inprogress">
+<noscript><strong class="noscript">We're sorry but Kseo27 doesn't work properly without JavaScript enabled.
+ Please enable it to continue.</strong></noscript>
+<div class="k-loading"><div class="k-preloader"></div></div>
+<div id="app">
+	<header class="header">
+		<h1>Kjq Archive</h1>
+		<label for="search">Search</label>
+		<input type="text" id="search" class="k-input" spellcheck="false" /><!-- for menu search -->
+		<label for="theme">Theme</label>
+		<select id="theme" class="k-select"></select>
+	</header>
 
-	</div>
-	<div class="container"></div>
-	<a href="/">/root</a>
-	<a href="/asdf1/#/asdf5/sub/?hash=asdf5#fdsafdsa">/asdf</a>
-	<a href="/asdf1/#/asdf5/sub#fdsafdsa?hash=asdf5">/asdf</a>
-	<a href="/#/asdf1"><span>/#/asdf1</span></a>
-	<a href="/#/asdf2"><span>/#/asdf2</span></a>
-	<a href="/#/asdf3"><span>/#/asdf3</span></a>
-	<a href="/#/asdf4"><span>/#/asdf4</span></a>
-	<a href="/#/asdf5?hash=asdf5"><span>/#/asdf5</span></a>
-	<a href="#justhash"><span>#justhash</span></a>
-	<a href="https://www.naver.com/" target="_blank"><span>NAVER</span></a>
+	<aside class="aside">
+		<ul class="k-nav"></ul>
 
-	<div class="event-wrapper" id="justhash">
-		<div class="ft-100">Capture Test</div>
-		<div class="ft-300">Capture Test</div>
-		<div class="ft-400">Capture Test</div>
-		<div class="ft-500">Capture Test</div>
-		<div class="ft-100">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
-		<div class="ft-300">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
-		<div class="ft-400">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
-		<div class="ft-500">한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</div>
-	</div>
+		<div class="target">
+			<span>K</span><span>j</span>
+		</div>
+	</aside>
 
-	<code>Capture Test. 한글로 써보았다. 병렬 정리가 안되어 눈에 밟힌다</code>
+	<main class="main">
+		<h2>Menu Title Position</h2>
+		<section class="k-routerview"></section>
+		<button type="button" class="testbtn getTmpl">get tmpl</button>
+		<pre class="code"></pre>
+		<!-- <textarea class="code" rows="10" spellcheck="false"></textarea> -->
+	</main>
 
-	<button type="button" class="testbtn get404">get 404</button>
-	<button type="button" class="testbtn getTmpl">get tmpl</button>
-	<button type="button" class="testbtn justFunc">function</button>
-
-	<MyComponent />
-	<my-component />
-
-	<pre></pre>
-</body>
+	<!-- <footer class="footer"></footer> -->
+</div>
 <style type="text/css">
 .testbtn { margin: .2em; padding: .5em 1em; }
+.target {
+	display: inline-block;
+	margin: 30px;
+	font-family: 'Syne Mono';
+	font-size: 26px;
+	background: red;
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
 </style>
 <script type="text/javascript">
 ( function() {
 
-// @:Ref eval url test
-// $._evalUrl( '/src/assets/js/eval-test.js' );
-// $._evalUrl( '/src/assets/js/eval-test.js' );
-// $(window).on('load', function() {
-// 	var scr = document.createElement('script');
-// 	scr.src = '/src/assets/js/eval-test.js';
-// 	document.body.appendChild( scr );
-// });
-// $( document.head ).append( '<script src="/src/assets/js/eval-test.js" />' );
+var mem;
 
-	// $.get( '/404.html', function( res, state, jqXHR ) {
-	// 	res = htmlFilter( res );
-	// });
-/* 
-$('.get404').on( 'click', function() {  // '/pages/template-test.tmpl'
-	$.get( {
-		url: '/pages/template-test.tmpl',
-		dataFilter: function( res ) {
-			return pageFilter( res );
-		}
-	}, function( res, state, jqXHR ) {
-		// res = pageFilter( res );
-		console.log(res);
-	} );
-} );
- */
-$('.getTmpl').on( 'click', function() {
-	// $.get( '/pages/template-test.html', function( res, state, jqXHR ) {
-	// 	res = pageFilter( res );
-	// 	console.log(res);
-	// } );
-
-	var rextension = /\.[a-z]+$/i;
-
-	var url = '/pages/./template-test';
-
-	if ( rextension.test( url ) ) {
-		$.get( url, function( res, state, jqXHR ) {
-			res = pageFilter( res );
-			console.log(res);
-		} )
-	} else {
-		$.ajax( url + '.tmpl', {
-			type: 'get'
-		} )
-		.then( function( res, state, jqXHR ) {
-			$.get( this.url, function( res, state, jqXHR ) {
-				console.log( $.parseHTML( res, true ) );
-				res = pageFilter( res );
-				console.log( this.url, $.parseHTML( res, true ) );
-			} )
-		} )
-		.catch( function( jqXHR, state, statusText ) {
-			if ( jqXHR.status == 404 ) {
-				$.get( url + '.tmpl', function( res, state, jqXHR ) {
-					res = pageFilter( res );
-					console.log( this.url, res );
-				} )
-			}
-			return true;
-		} );
-	}
-} );
-
-
-
-	// // 스코프로 지정할 요소 선언
-	// // TODO: 전부 외부에서 확장하여 할당만 하는 방식이 좋을듯
-	// var $scope = /* jQuery( scopeElement ) */ jQuery('#scopedContent');
-
-	// var id = _uniqueId();
-	// $scope.attr( 'data-dom', 'dom' + id );
-
-	// // 스코프를 제한하여 jQuery 대체 셀렉터 함수 정의
-	// $ = function jQueryComponent( selector, context ) {
-	// 	context = context ? $( context, $scope ) : $scope;
-	// 	return new jQuery.fn.init( selector, context, context );
-	// };
-
-	// // 전역 메서드와 프로토타입 복사
-	// jQuery.extend( $, jQuery );
-	// // jQuery.extend( ( $.fn = $.prototype = {} ), jQuery.fn );
-	// $.fn = $.prototype = jQuery.fn;
-
-
-// justhash
-var originit = $.fn.init;
-
-function jqCompo( root, selector, context ) {
-	if ( context && !$.isPlainObject( context ) ) {
-		// context = 
-	}
-	
-	context = context ? $( root ).find( context ) : root;
-	var ret = originit.call( this, selector, context, root );
-	console.log( root, selector, context, ret );
-	return ret;
-}
-jqCompo.prototype = $.fn;
-
-
-var lastId = 0;
-
-function uniqueId( prefix ) {
-	return ( prefix || 'k-' ) + ( ++lastId ).toString( 36 );
+if ( ( mem = navigator.deviceMemory ) ) {
+	$( '<span>' ).text( 'Memory ' + mem + 'GB' )
+		.prop( 'title', 'This device has at least ' + mem + 'GiB of RAM.' )
+		.insertAfter( 'header h1' );
 }
 
-$.fn.executeComponent = function( func ) {
-	var elem, i;
+// [General]
+//   Request URL: http://127.0.0.1:5500/pages/template-test.tmpl
+//   Request Method: GET
+//   Status Code: 304 Not Modified
+//   Remote Address: 127.0.0.1:5500
+//   Referrer Policy: strict-origin-when-cross-origin
 
-	console.log(
-		this.data( 'component', { id: uniqueId() } )
-	);
+// [Respons Headers]
+//   Accept-Ranges: bytes
+//   Access-Control-Allow-Credentials: true
+//   Cache-Control: public, max-age=0
+//   Connection: keep-alive
+//   [-200-]
+//		Content-Length: 14910
+//		Content-Type: text/html; charset=UTF-8
+//   Date: Fri, 03 Mar 2023 02:53:18 GMT
+//   ETag: W/"b0b-186a2b2857d"
+//   Keep-Alive: timeout=5
+//   Last-Modified: Thu, 02 Mar 2023 14:20:54 GMT
+//   Vary: Origin
 
-	for ( i = 0; ( elem = this[ i ] ) != null; i++ ) {
-		try {
-			$.currentComponent = elem;
-			$.fn.init = jqCompo.bind( null, elem );
-			func();
-		} finally {
-			$.currentComponent = null;
-			$.fn.init = originit;
-		}
-	}
-}
+// [Request Headers]
+//   Accept: */*
+//   Accept-Encoding: gzip, deflate, br
+//   Accept-Language: ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7
+//   Connection: keep-alive
+//   Host: 127.0.0.1:5500
+//   If-Modified-Since: Thu, 02 Mar 2023 14:20:54 GMT
+//   If-None-Match: W/"b0b-186a2b2857d"
+//   Referer: http://127.0.0.1:5500/
+//   sec-ch-ua: "Chromium";v="110", "Not A(Brand";v="24", "Google Chrome";v="110"
+//   sec-ch-ua-mobile: ?0
+//   sec-ch-ua-platform: "Windows"
+//   Sec-Fetch-Dest: empty
+//   Sec-Fetch-Mode: cors
+//   Sec-Fetch-Site: same-origin
+//   User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36
+//   X-Requested-With: XMLHttpRequest
 
-// function emptyComponent( elems )
-
-// $.fn.emptyComponent = function() {
-// 	var compoData = this.data( 'component' );
-// 	if ( compoData ) {
-// 		this.data( 'component', { id: compoData.id } );
-// 		compoData = null;
-// 	}
-// }
-
-
-// proxy event listener
-// addEventListener\s*( | removeEventListener\s*( 검색하여 => addEventProxy( 'routeId', 형태로 변환
-Window.prototype.proxyEventListener =
-Document.prototype.proxyEventListener =
-Element.prototype.proxyEventListener = function( routeId, type, listener, useCapture ) {
-	var component;
-	if ( !routeId || !( component = $( '[data-compo="' + routeId + '"' ) )[ 0 ] ) {
-		return console.error( 'None current component.' );
-	}
-// --------------------- todo:...
-	var that = this,
-		eventId = '.' + $( $.currentComponent ).data( 'component' ).id;
-
-	this.addEventListener( type, listener, useCapture );
-
-	if ( $.contains( $.currentComponent, this ) ) {
-		$( this ).on( 'remove', function() {
-			that.removeEventListener( type, listener, useCapture );
-		} );
-	} else {
-		$( $.currentComponent ).on( 'remove' + eventId + ' empty' + eventId, function() {
-			that.removeEventListener( type, listener, useCapture );
-		} );
-	}
-
-	// function _removeEvent() {
-	// 	$( '#wrapper' ).off( 'empty', _removeEvent );
-	// 	that.removeEventListener( type, listener, useCapture );
-	// 	that = _removeEvent = null;
-	// }
-	// $( '#wrapper' ).on( 'empty', _removeEvent );
-
-}
-
-window.proxyEventListener('popstate', function(ev) {
-	console.log('local popstate', ev);
-})
-
-// empty event 추가
-$.fn.empty = ( function( orig ) {
-	return function() {
-		var events, data, elem, i;
-		for ( i = 0; ( elem = this[ i ] ) != null; i++ ) {
-			events = $._data( elem, "events" );
-			if ( events && events.empty ) {
-				$( elem ).triggerHandler( "empty" );
-			}
-		
-			var compoData = this.data( 'component' );
-			if ( compoData ) {
-				this.data( 'component', { id: compoData.id } );
-				compoData = null;
-			}
-			
-		}
-		orig.call( this );
-	};
-} )( $.fn.empty );
-
-// jquery ui 에 존재함
-$.cleanData = ( function( orig ) {
-	return function( elems ) {
-		var events, elem, i;
-		for ( i = 0; ( elem = elems[ i ] ) != null; i++ ) {
-
-			// Only trigger remove when necessary to save time
-			events = $._data( elem, "events" );
-			if ( events && events.remove ) {
-				$( elem ).triggerHandler( "remove" );
-			}
-		}
-		orig( elems );
-	};
-} )( $.cleanData );
-
-
-var resources = {};
 $( window ).one( 'load', function() {
-	document.querySelectorAll( 'script[src], link[href]' ).forEach( function( el ) {
-		var srcurl = el.src || el.href;
-		if ( srcurl && ( /^script$/i.test( el.nodeName ) || /^stylesheet$/i.test( el.rel ) ) ) {
-			resources[ srcurl ] = true;
+	setTimeout( function() {
+		var timing, loadtime;
+
+		if ( typeof PerformanceNavigationTiming !== 'undefined' ) {
+			timing = performance.getEntriesByType( 'navigation' )[ 0 ];
+			loadtime = ( timing.duration >> 0 ) + ' ms';
+
+		} else if ( typeof PerformanceTiming !== 'undefined' ) {
+			timing = performance.timing;
+			loadtime = ( timing.loadEventEnd - timing.navigationStart ) + ' ms';
 		}
+
+		console.log( '[Loading Performance]: ', loadtime );
+		timing = null;
 	} );
-
-	console.log( resources );
-} );
-
-// var urlAnchor = document.createElement( 'a' );
-
-function isImported( el ) {
-	var currentRouteUrl = '/path/'; // route와 함께 적용
-	var urlAnchor;
-	var srcurl = el.getAttribute( 'src' ) || el.getAttribute( 'href' );
-
-	if ( srcurl && ( /^script$/i.test( el.nodeName ) || /^stylesheet$/i.test( el.rel ) ) ) {
-
-		// Parse url for locally import
-		if ( /^(\/?\.+\/|[-\w])/.test( srcurl ) ) {
-			srcurl = ( currentRouteUrl + '/' + srcurl ).split( /\/+/ ).join( '/' );
-		}
-		urlAnchor = document.createElement( 'a' );
-		urlAnchor.href = srcurl;
-		urlAnchor.href = urlAnchor.href;
-		console.log( srcurl = urlAnchor.href );
-		return !!resources[ srcurl ];
-	}
-}
-
-
-// * context prefilter test
-// $.ajaxPrefilter( '*', function( s, originalSettings, jqXHR ) {
-
-// 	console.log('=== new prefilter.', this);
-
-// 	jqXHR.always( function() {
-// 		console.log('=== new prefilter always.');
-// 	} );
-// } );
-
-// $.ajaxPrefilter( '+', function( s, originalSettings, jqXHR ) {
-
-// 	console.log('=== new2 prefilter.');
-
-// 	jqXHR.always( function() {
-// 		console.log('=== new2 prefilter always.');
-// 	} );
-// } );
-
-// @:Test request
-$('.get404').on( 'click', function() {  // '/pages/template-test.tmpl'
-	$( '.event-wrapper' ).ajax( '/pages/template-test.tmpl', {
-		dataType: 'json',
-		// dataFilter: function( res ) {
-		// 	return pageFilter( res );
-		// }
-	} ).then( function( res, state, jqXHR ) {
-		console.log( res );
-	} );
-	$( '.event-wrapper' ).ajax( '/pages/template-test.tmpl', {
-		dataFilter: function( res ) {
-			return pageFilter( res );
-		}
-	} ).then( function( res, state, jqXHR ) {
-		console.log( res );
-	} );
-
-	// $.ajaxAbortAll();
-} );
-
-// @:Test just function
-$('.justFunc').on( 'click', function justFunction() {
-	console.log('just function.');
-	return null;
 } );
 
 
 } )();
 </script>
+</body>
 </html>

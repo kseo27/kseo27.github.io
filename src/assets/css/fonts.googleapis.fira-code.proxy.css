@@ -1,0 +1,37 @@
+@charset "utf-8";
+/*
+*[Google Web Font proxy]
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap");
+본래 위와 같이 웹폰트를 import해야 하지만 Noto Sans 폰트 굵기와 비교하여 font-weight를 한 단계 내리기 위해
+임의로 woff포맷을 우선으로 import하게 함 (woff2폰트는 variable-font로, 임의로 font-weight조작이 불가)
+ */
+@font-face {
+font-family: 'Fira Code'; font-style: normal; font-weight: 100; font-display: swap;
+src: url(https://fonts.gstatic.com/s/firacode/v21/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_GNsFVQ.woff) format('woff'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Light.woff2) format('woff2'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Light.woff) format('woff');
+}
+@font-face {
+font-family: 'Fira Code'; font-style: normal; font-weight: 300; font-display: swap;
+src: url(https://fonts.gstatic.com/s/firacode/v21/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_D1sFVQ.woff) format('woff'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Regular.woff2) format('woff2'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Regular.woff) format('woff');
+}
+@font-face {
+font-family: 'Fira Code'; font-style: normal; font-weight: 400; font-display: swap;
+src: url(https://fonts.gstatic.com/s/firacode/v21/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_A9sFVQ.woff) format('woff'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Medium.woff2) format('woff2'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Medium.woff) format('woff');
+}
+@font-face {
+font-family: 'Fira Code'; font-style: normal; font-weight: 500; font-display: swap;
+src: url(https://fonts.gstatic.com/s/firacode/v21/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_ONrFVQ.woff) format('woff'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Bold.woff2) format('woff2'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Bold.woff) format('woff');
+}
+@font-face {
+font-family: 'Fira Code'; font-style: normal; font-weight: 700; font-display: swap;
+src: url(https://fonts.gstatic.com/s/firacode/v21/uU9eCBsR6Z2vfE9aq3bL0fxyUs4tcw4W_NprFVQ.woff) format('woff'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Black.woff2) format('woff2'),
+	 url(/src/assets/fonts/fira-code/FiraCode-Black.woff) format('woff');
+}

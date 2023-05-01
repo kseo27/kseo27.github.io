@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta property="kj:search" content="template test, template literals, angle>bracket > in attr value." />
+	<meta property="kj:description" content="페이지 메뉴의 빌드 과정을 test>
+		테스트하기 위한 템플릿 입니다 ;" />
+	<title>Redirect to index</title>
+	<script type="text/javascript">
+		var str = ' </head> <body>';
+		// TODO: query string으로 path & query를 index페이지로 전달
+		// path=encodeURIComponent(path)&query=encodeURIComponent(query)
+		window.location.href = window.location.protocol + '//' + window.location.host;
+
+		var op1 = 123 < 523, op2 = 123 / 523;
+	</script>
+	<script type="text/javascript">` </script> ${ 'is it detectable?' } `</script>
+	<style id="css-w-colon">
+
+
+		.class-with { border-width: 15px; } /* not working */
+		.class-with\:colon { border-style: dashed; }
+		.class-with\3A colon { border-color: red; } /* < IE8  hexcode escape */
+		[class="class-with:colon"] { padding: 2em; border-radius: .5em; background: #ddd; }
+		.test-comment { /* for comment test */ display: none; } /* for test
+			comments
+		*/
+
+		[content='<style></style>'] { color: white; }
+
+		/*
+		.single-table { background-color: transparent; }
+		.single-table tbody { counter-reset: list 8; background-color: transparent; }
+		.single-table tr { counter-increment: list; background-color: transparent; }
+		.single-table td:first-child:before { content: counters(list, "-"); background-color: transparent; }
+		.single-table td { background-color: transparent; }
+		 */
+	</style>
+</head>
+<body>
+<!-- 404 Not Found!!! -->
+</body>
+<script type="text/javascript" cl:attr="Attribute with 'Colon';" bool-attr :attr="Starts with 'Colon';">
+	var str = ' </body> </head>';
+	// TODO: query string으로 path & query를 index페이지로 전달
+	// path=encodeURIComponent(path)&query=encodeURIComponent(query)
+	window.location.href = window.location.protocol + '//' + window.location.host;
+
+	var normalTml = ` normal template literal `;
+
+	function obj2String( obj ) {
+		var key, res = '';
+		for ( key in obj ) {
+			res += `${res ? ', ' : ''}${key}: ${obj[key]}`;
+		}
+		return res;
+	}
+
+	var error = `${e.type}`;
+
+	var tml = ` </body> </head> "$tmpl" template literals ${ obj2String({
+			prop: `property ${ document.cookie + obj2String({ cookies: { tmp: `accept` } }) }`
+		}) +
+			window.location.href + ` inner tml ${ `check` + window.location.host + ` deeper } ${
+				window.location.protocol + 'protocol'
+			} deeper ${
+				`check` + window.location.protocol + `protocol } `
+			} fake \${ } ` } `
+		} check test	`
+
+		`;
+</script>
+</html>

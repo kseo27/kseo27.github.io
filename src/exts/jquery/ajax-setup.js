@@ -1,4 +1,7 @@
-
+/*!
+ * jQuery AJAX Setup
+ * dependencies: jquery, k-common.js
+ */
 ( function( factory ) { 'use strict';
 	if ( typeof define === 'function' && define.amd ) {
 
@@ -16,29 +19,6 @@
 } )( function( $ ) { 'use strict';
 
 
-var rhashQuery = /(#|\?).*$/;
-
-// Normalize request url
-function normalizeUrl( url ) {
-	var urlAnchor = document.createElement( 'a' );
-
-	// Support: IE <=8 - 11, Edge 12 - 15
-	// IE throws exception on accessing the href property if url is malformed,
-	// e.g. http://example.com:80x/
-	try {
-		urlAnchor.href = url;
-
-		// Support: IE <=8 - 11 only
-		// Anchor's host property isn't correctly set when s.url is relative
-		urlAnchor.href = urlAnchor.href;
-		url = urlAnchor.href;
-	} catch ( e ) {}
-
-	urlAnchor = null;
-
-	return url.replace( rhashQuery, '' );
-}
-
 var ajaxQueue = {};
 
 // ???
@@ -54,7 +34,7 @@ function clearAjaxQueue() {
 // 중복 요청 방지
 $.ajaxPrefilter( '+', function( s, originalSettings, jqXHR ) {
 	console.log('*== def prefilter.');
-	var requestId = s.type.toUpperCase() + ':' + normalizeUrl( s.url );
+	var requestId = s.type.toUpperCase() + ':' + normalizeURL( s.url );
 
 	if ( ajaxQueue[ requestId ] ) {
 		jqXHR.abort( 'duplicated' );
@@ -62,7 +42,7 @@ $.ajaxPrefilter( '+', function( s, originalSettings, jqXHR ) {
 	}
 
 	if ( s.element ) {
-		s.element.append( '<div class="k-loading"><div class="k-preloader"></div></div>' );
+		$( s.element ).append( '<div class="k-loading"><div class="k-preloader"></div></div>' );
 	}
 
 	// TODO: prefilter 내부에서 처리해도 되는지 테스트 필요 (시나리오1)
@@ -74,7 +54,7 @@ $.ajaxPrefilter( '+', function( s, originalSettings, jqXHR ) {
 		console.log('*== def prefilter always.', this);
 
 		if ( s.element ) {
-			s.element.find( '.k-loading' ).remove();
+			$( s.element ).find( '.k-loading:last' ).remove();
 		}
 
 		// console.log('[prefilter]:after:', requestId);
@@ -95,7 +75,7 @@ $.ajaxAbortAll = function() {
 
 
 // TODO: prefilter 내부에서 처리하면 안된다면... (시나리오2)
-/* 
+/*
 $( document ).ajaxSend(function( ev, xhr, settings ) {
 	if ( ajaxQueue.indexOf( xhr ) === -1 ) {
 		ajaxQueue.push( xhr );
@@ -115,22 +95,53 @@ $( document ).ajaxSend(function( ev, xhr, settings ) {
 // TODO: 공통 예외 처리 테스트 중
 // Log Colors: Red #EE0000, Green #00AA00, blue #0000AA, Orange #E98000, Brown #AA5500
 
+var rerrorState = /error/i;
+
 $.ajaxSetup( {
+
+	// Request timeout 30 seconds
+	timeout: 30000,
+
 	statusCode: {  // this === settings
 		0: function( jqXHR, state, statusText ) {
-			console.log( '%c[AJAX statusCode]:[0]', 'color:#E98000;', '['+state+']', this.type.toUpperCase() +':'+ this.url );
+			console.log( jqXHR, state, statusText );
+			console.log( '%c[AJAX statusCode]:[0]', 'color:#E98000;', '['+state+']',
+				( statusText && state != statusText ) ? statusText : '', this.type +':'+ this.url );
+
+			if ( state == 'timeout' ) {
+				return; // timeout logic 실행
+			}
+
+			// if ERR_CONNECTION_REFUSED, state === 'error', statusText === ''
 		},
 		200: function( response, state, jqXHR ) {
-			console.log( '%c[AJAX statusCode]:[200]', 'color:#00AA00;', '['+state+']', jqXHR.statusText, this.type +':'+ this.url );
+			var statusText = jqXHR.statusText || ( response && response.statusText ) || '';
+
+			var logColor = 'color:#00AA00;';
+
+			if ( rerrorState.test( state ) ) { // dataType에 의한 'parsererror'의 경우
+				logColor = 'color:#EE0000;';
+				// error logic 실행
+			}
+
+			// Another error checking method
+			// if ( typeof jqXHR == 'string' || jqXHR instanceof Error ) {
+			// 	// error logic 실행
+			// }
+
+			console.log( response, state, jqXHR );
+			console.log( '%c[AJAX statusCode]:[200]', logColor, '['+state+']', statusText, this.type +':'+ this.url );
 		},
 		404: function( jqXHR, state, statusText ) {
-			console.log( '%c[AJAX statusCode]:[404]', 'color:#EE0000;', '['+state+']', statusText, this.type +':'+ this.url );
+			console.log( jqXHR, state, statusText );
+			console.log( '%c[AJAX statusCode]:[404]', 'color:#EE0000;', '['+state+']',
+				( statusText && state != statusText ) ? statusText : '', this.type +':'+ this.url );
 		},
 	}
 });
 
 // TODO: 공통 예외 처리 테스트 중
-/* 
+/*
 $.ajaxSetup( {
 	statusCode: {
 		0: function( xhr, statusText, c ) {
@@ -173,7 +184,7 @@ $.ajaxSetup( {
 			// 잠시 후 다시 시도 해주십시오.
 		},
 
-		// Extended error
+		// Extended custom error
 		900: function( xhr, statusText ) {
 			// Expired Session
 			// Your session has expired. Please sign in again.
@@ -193,6 +204,9 @@ $.ajaxSetup( {
 
 
 $.fn.ajax = function( url, options ) {
+	if ( !this.length ) {
+		return console.error( 'No ajax binding element' );
+	}
 
 	if ( typeof url === "object" ) {
 		options = url;
@@ -205,7 +219,7 @@ $.fn.ajax = function( url, options ) {
 }
 
 
-
+// todo: need to move to k-main.js
 window.genLoader = function() {
 	var loading = document.createElement( 'div' ),
 		loader = loading.appendChild( document.createElement( 'div' ) );
@@ -217,9 +231,12 @@ window.genLoader = function() {
 // .k-loading
 $( window ).one( 'load', function( ev ) {
 	if ( !$.active ) {
-		return $( '.k-loading' ).remove();
+		$( document.body ).removeClass( 'k-inprogress' );
+		$( '.k-loading' ).remove();
+		return;
 	}
 	$( document ).one( 'ajaxStop.load', function() {
+		$( document.body ).removeClass( 'k-inprogress' );
 		$( '.k-loading' ).remove();
 	});
 });

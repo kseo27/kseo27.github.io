@@ -245,7 +245,7 @@ $( window ).on( 'popstate', function( event, data ) {
 	// event.originalEvent.preventDefault()
 	// event.originalEvent.returnValue = ""
 	// return '/';
-	
+
 
 	// originAnchor.protocol + "//" + originAnchor.host
 	// return false;
@@ -402,7 +402,7 @@ function uniqueId( prefix ) {
 		// event.originalEvent.preventDefault()
 		// event.originalEvent.returnValue = ""
 		// return '/';
-		
+
 
 		// originAnchor.protocol + "//" + originAnchor.host
 		// return false;

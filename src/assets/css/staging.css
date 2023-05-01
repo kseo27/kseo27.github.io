@@ -1,0 +1,64 @@
+
+
+h2, h3, h4, h5, h6 { margin-bottom: .5em; }
+label { padding-bottom: .1em; }
+
+.k-input { height: 2.3rem; padding: .2rem .75rem .3rem; border: 1px solid #ccc; border-radius: 3px; }
+.k-select { height: 2.3rem; padding: .2rem .75rem .3rem; border: 1px solid #ccc; border-radius: 3px; }
+
+/* header */
+header { position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+	display: flex; align-items: center; /* justify-content: space-between; */
+	height: 55px; /* $header-height */
+	padding: 0 2rem; background-color: #fff; border-bottom: 1px solid #ddd; }
+header h1 { margin-right: auto; padding-bottom: .1em; font-size: 1.5rem; }
+header label { margin-left: 2rem; margin-right: .75rem; }
+#search { max-width: 250px; width: 30%; }
+#theme { min-width: 6em; }
+
+/* side nav bar */
+aside {
+	position: fixed; top: 0; left: 0; bottom: 0;
+	width: 250px; width: calc(180px + 5%);
+	border-right: 1px solid #ddd; background-color: #fff;
+
+	left: auto;
+}
+.k-nav { margin-top: 80px; }
+.k-menu-link:hover { text-decoration: underline; }
+.k-menu-item-1 { padding: .75rem 1.5rem; }
+.k-menu-item-1 > .k-menu-link {  }
+
+
+/* main container */
+main {
+	margin-left: 250px; margin-left: calc(180px + 5%);
+	padding: 2rem 3rem 3rem;
+}
+
+
+/* TODO: test theme */
+.dark header, .dark aside {
+	background-color: #000;
+}
+
+
+
+/* @:Expt @supports at-rule */
+/* Chrome 28 | Firefox 22 | Safari 9 | Opera 12.1 | Edge 12 */
+
+/* @:Expt backdrop-filter */
+/* Chrome 76 | Firefox 103 | Safari 9 | Opera 64 | Edge 17 */
+.backdrop-filter-modal {
+	padding: 1.5rem 2rem;
+	background-color: rgba(255, 255, 255, 0.95);
+	border-radius: 5px;
+}
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+	.backdrop-filter-modal {
+		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(10px);
+		background-color: rgba(255, 255, 255, 0.5);
+	}
+}
+

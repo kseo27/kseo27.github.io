@@ -17,7 +17,7 @@
 
 // Utils
 if ( String.prototype.trim ) $.trim = function( text ) {
-	return text == null ? "" : ( text + "" ).trim();
+	return text == null ? '' : ( text + '' ).trim();
 };
 
 $.escapeRegex = function( value ) {

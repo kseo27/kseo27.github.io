@@ -1,0 +1,35 @@
+[
+	{
+		"name": "Experiments",
+		"url": "/experiments",
+		"isdir": true,
+		"children": [
+			{
+				"name": "Index",
+				"url": "/experiments/index.html"
+			},
+			{
+				"name": "Template test",
+				"url": "/experiments/template-test.html",
+				"title": "<Template> test",
+				"desc": "페이지 메뉴의 빌드 과정을 테스트하기 위한 템플릿 입니다",
+				"search": [
+					"template test",
+					"template literals",
+					"test template"
+				]
+			},
+			{
+				"name": "Template test",
+				"url": "/experiments/template-test.tmpl",
+				"title": "Redirect to index",
+				"desc": "페이지 메뉴의 빌드 과정을 test>\r\n\t\t테스트하기 위한 템플릿 입니다 ;",
+				"search": [
+					"template test",
+					"template literals",
+					"angle>bracket > in attr value."
+				]
+			}
+		]
+	}
+]
